@@ -1,0 +1,19 @@
+import java.util.*;
+import java.lang.Math;
+public class Solution {
+
+    public static boolean isBST(BinaryTreeNode<Integer> root) {
+    return isBSTHelper(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+}
+
+private static boolean isBSTHelper(BinaryTreeNode<Integer> node, int minValue, int maxValue) {
+    if (node == null) {
+        return true;
+    }
+    if (node.data < minValue || node.data > maxValue) {
+        return false;
+    }
+    return isBSTHelper(node.left, minValue, node.data)
+            && isBSTHelper(node.right, node.data, maxValue);
+    }
+}
