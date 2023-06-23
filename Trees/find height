@@ -1,0 +1,48 @@
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+public class Solution {
+
+	/*	TreeNode structure 
+	 * 
+	 * class TreeNode<T> {
+		T data;
+		ArrayList<TreeNode<T>> children;
+
+		TreeNode(T data){
+			this.data = data;
+			children = new ArrayList<TreeNode<T>>();
+		}
+	}*/
+    private static int count=0;
+	public static int getHeight(TreeNode<Integer> root){
+        
+        
+		if(root == null){
+            return 0;
+        }
+         
+        Queue<TreeNode<Integer>> q1 = new LinkedList<>();
+        q1.add(root);
+        
+        while(!q1.isEmpty()){
+            count++;
+            Queue<TreeNode<Integer>> q2=q1;
+            ArrayList<TreeNode<Integer>> a1=new ArrayList<>();
+            while(!q2.isEmpty()){
+                TreeNode<Integer>temp=q2.poll();
+                for(int i=0;i<temp.children.size();i++){
+                    a1.add(temp.children.get(i));
+                }
+            }
+            q1.clear();
+            for(int i=0;i<a1.size();i++){
+                q1.add(a1.get(i));
+            }
+        }
+        
+        
+       return count; 
+	}
+
+}
