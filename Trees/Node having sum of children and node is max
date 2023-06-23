@@ -1,0 +1,59 @@
+import java.util.*;
+public class Solution {
+
+/*	TreeNode structure 
+ * 
+ * class TreeNode<T> {
+		T data;
+		ArrayList<TreeNode<T>> children;
+
+		TreeNode(T data){
+			this.data = data;
+			children = new ArrayList<TreeNode<T>>();
+		}
+	}*/
+    static class Pair{
+        TreeNode<Integer>node;
+        int sum;
+        Pair(TreeNode<Integer>node,int sum){
+            this.node=node;
+            this.sum=sum;
+        }
+    }
+    
+	private static ArrayList<Pair> a1=new ArrayList<>();
+    private static int maxSum=Integer.MIN_VALUE;
+    private static Pair maxPair;
+    
+    
+	private static Pair maxPairfn(TreeNode<Integer>root){
+        int allsum=root.data;
+        
+        for(int i=0;i<root.children.size();i++){
+            allsum+=root.children.get(i).data;
+        }
+        
+        Pair result=new Pair(root,allsum);
+        a1.add(result);
+        
+        for(int i=0;i<root.children.size();i++){
+            maxPairfn(root.children.get(i));
+        }
+        
+        for(int i=0;i<a1.size();i++){
+            if(a1.get(i).sum>maxSum){
+                maxSum=a1.get(i).sum;
+                maxPair=a1.get(i);
+            }
+        }
+        return maxPair;
+    }
+    
+    
+	public static TreeNode<Integer> maxSumNode(TreeNode<Integer> root){
+		Pair result=maxPairfn(root);
+        return result.node;
+	}
+	
+		
+}
