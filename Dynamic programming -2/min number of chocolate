@@ -1,0 +1,39 @@
+public class Solution {
+
+	public static int getMin(int arr[], int N){
+        
+        /* Your class should be named Solution
+		 * Don't write main().
+		 * Don't read input, it is passed as function argument.
+		 * Return output and don't print it.
+	 	 * Taking input and printing output is handled automatically.
+        */
+     int dp[][]= new int [2][N];
+		dp[0][0]= 1;
+		for(int i =0 ; i<N-1 ; i++){
+			if(arr[i]<arr[i+1]){
+				dp[0][i+1]=dp[0][i]+1;
+			}
+			else{
+				dp[0][i+1]=1;
+			}
+		}
+
+		dp[1][N-1]= 1;
+		for(int j =N-1 ; j>0 ; j--){
+			if(arr[j]<arr[j-1]){
+				dp[1][j-1]=dp[1][j]+1;
+			}
+			else{
+				dp[1][j-1]=1;
+			}
+		}
+
+		int ans1=0;
+		for(int k=0; k<N; k++){
+			ans1+= Math.max(dp[0][k],dp[1][k]);
+		}
+
+		return ans1;   
+    }
+}
