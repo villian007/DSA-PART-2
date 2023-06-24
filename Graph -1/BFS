@@ -1,0 +1,61 @@
+import java.util.LinkedList;
+import java.util.Queue;
+import java.io.IOException;
+import java.util.Scanner;
+public class Solution {
+
+		public static void bftraversalhelper(int adjMatrix[][]){
+			boolean visited[]= new boolean[ adjMatrix.length];
+			for(int i=0; i<adjMatrix.length; i++){  // for disconnected graph 
+				if(visited[i]== false){
+					bftraversal(adjMatrix, i,visited); 
+				}
+			}
+		}
+		public static void bftraversal(int adjMatrix[][], int curr_vertex, boolean visited[ ]) {
+
+			 Queue<Integer> que= new LinkedList<Integer>();
+			 	que.add(curr_vertex);
+		       
+
+		       while(!que.isEmpty()){
+		    	 curr_vertex= que.poll();
+			   System.out.print(curr_vertex+" ");
+			    visited[curr_vertex]= true;
+			   for(int i=0; i<adjMatrix.length;i++){
+				if(adjMatrix[curr_vertex][i]==1 && !visited[i]){
+					que.add(i);
+					visited[i]=true;
+				}
+			}
+		}
+		}
+
+		public static void main(String[] args) throws NumberFormatException, IOException {
+        
+        
+		 Scanner s1 = new Scanner(System.in);
+		 int v = s1.nextInt();
+		 int e = s1.nextInt();
+		 int adjMatrix[][]= new int [v][v];
+		
+		if(e == 0 ){
+				for( int j =0; j<v; j++){
+				System.out.print(j+" ");
+			}
+		}
+		else{
+		 for( int i=0; i<e; i++){
+			 int v1 = s1.nextInt();
+			 int v2= s1.nextInt();
+
+			adjMatrix[v1][v2]=1;
+			adjMatrix[v2][v1]=1;
+
+		 }
+			bftraversalhelper(adjMatrix);
+		
+		}
+
+	}
+}
