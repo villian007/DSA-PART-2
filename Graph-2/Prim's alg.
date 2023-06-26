@@ -1,0 +1,88 @@
+import java.util.*;
+
+
+public class Solution {
+
+	public static void Prims(int adjMatrix[][], int V ){
+
+		int parent[]= new int [V];
+		boolean visited[]= new boolean[V];
+		int weight[]= new int[V];
+		  
+		  // source vertex = 0
+		 int source = 0;
+		parent[source]= -1;
+		weight[source]= 0;
+
+		// putting infinity in all vertex except source
+		 for(int i =1; i<V; i++){
+			 weight[i]= Integer.MAX_VALUE;
+		 }
+		
+		
+		for( int i =0;i<V ; i++){  
+
+			int min_w8_V= findMinvertex(weight, visited); 
+			visited[min_w8_V]= true; 
+
+			for( int j =0; j<V; j++){ 
+
+				if(adjMatrix[j][min_w8_V] != 0 && visited[j]== false){
+
+					if(weight[j]>adjMatrix[j][min_w8_V]){
+						
+						//update vertex
+						parent[j]= min_w8_V;
+						weight[j]= adjMatrix[j][min_w8_V];
+
+					}
+				}
+			}
+		}
+
+		//Print MST
+		// parent []= -1 0 1 0
+			for(int k=1; k<V; k++){
+
+				if( k > parent[k]){
+
+					System.out.println(parent[k]+" "+k+" "+weight[k]);
+				}
+				else{
+				
+				System.out.println(k+" "+parent[k]+" "+weight[k]);
+			}
+			}
+	}
+             
+// findMinvertex func helps u to find vertex with mini weight + it is unvisited
+	public static int findMinvertex( int weight[], boolean visited[]){
+		
+		int v=-1;
+		for(int i =0; i<weight.length; i++){
+				if(          !visited[i] && (v==-1 ||weight[i]<weight[v])   ){
+		
+					v=i;
+				}
+		}
+		return v;
+	}
+	public static void main(String[] args) {
+		Scanner s = new Scanner(System.in);
+		int V = s.nextInt();
+		int E = s.nextInt();
+
+		int adjMatrix[][]= new int [V][V];
+		 for( int i =0;i<E; i++){
+			 int v1= s.nextInt();
+			 int v2= s.nextInt();
+			 int weight= s.nextInt();
+			
+			adjMatrix[v1][v2]= weight;
+			adjMatrix[v2][v1]= weight; 
+		 }
+		
+		Prims(adjMatrix, V);
+
+	}
+}
